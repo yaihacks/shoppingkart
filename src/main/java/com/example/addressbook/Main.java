@@ -1,12 +1,12 @@
 package com.example.addressbook;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        AddressBook addressBook = new AddressBook();
-        boolean flag=true;
+        ContactManager contactManager = new ContactManager();
         Scanner myObj = new Scanner(System.in);
-        while (flag){
+        while (true){
             System.out.println("Press 1 to add contact or press 2 to search contact or press 3 to exit\n");
             String command = myObj.nextLine();
             if(command.equals("1")){
@@ -19,32 +19,49 @@ public class Main {
                 System.out.println("Please Enter phone no.");
                 String phoneNo = myObj.nextLine();
                 Contact contact = new Contact(firstname,lastname,address,phoneNo);
-                addressBook.addContact(firstname+lastname, contact);
+                contactManager.addContact(contact);
             }
             else if (command.equals("2")){
                 System.out.println("Please Enter name or number to search contact details\n");
                 String input = myObj.nextLine();
                 if(input.matches("[0-9]+")){
-                    Contact resultByPhone = addressBook.searchByPhoneNumber(input);
-                    if (resultByPhone != null) {
-                        System.out.println("Search by phone: " + resultByPhone.getPhoneNumber());
+                    List<Integer> resultByPhone = contactManager.searchByPhone(input);
+                    if (!resultByPhone.isEmpty()) {
+                        List<Contact> contactsByPhone = contactManager.getContactsByHashCodes(resultByPhone);
+                        System.out.println("Contacts found by phone:");
+                        for (Contact contact : contactsByPhone) {
+                            System.out.println(contact.getFirstName()+" "+contact.getLastName()+"\n"+contact.getPhoneNumber()+"\n"+contact.getAddress());
+                        }
                     } else {
                         System.out.println("Contact not found by phone number.");
                     }
                 }
                 else{
-                    Contact resultByName = addressBook.searchByName(input);
-                    if (resultByName != null) {
-                        System.out.println("Search by name: " + resultByName.getFirstName() + " " + resultByName.getLastName());
+                    String firstName,lastName=null;
+                    if(input.split("\\w+").length>1){
+                        lastName = input.substring(input.lastIndexOf(" ")+1);
+                        firstName = input.substring(0, input.lastIndexOf(' '));
+                    }
+                    else{
+                        firstName = input;
+                    }
+                    List<Integer> resultByName = contactManager.searchByName(firstName,lastName);
+                    if (!resultByName.isEmpty()) {
+                        List<Contact> contactsByName = contactManager.getContactsByHashCodes(resultByName);
+                        System.out.println("Contacts found by name:");
+                        for (Contact contact : contactsByName) {
+                            System.out.println(contact.getFirstName()+" "+contact.getLastName()+"\n"+contact.getPhoneNumber()+"\n"+contact.getAddress());
+                        }
                     } else {
                         System.out.println("Contact not found by name.");
                     }
                 }
             }
-            else break;
+            else if (command.equals("3"))break;
+            else System.out.println("Please enter valid option");
         }
         System. exit(0);
 //        Contact contact2 = new Contact("Alice", "Smith", "456 Oak Ave", "9876543210");
-//        addressBook.addContact("AliceSmith", contact2);
+//        contactManager.addContact("AliceSmith", contact2);
     }
 }
