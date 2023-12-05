@@ -30,27 +30,19 @@ public class Main {
                         List<Contact> contactsByPhone = contactManager.getContactsByHashCodes(resultByPhone);
                         System.out.println("Contacts found by phone:");
                         for (Contact contact : contactsByPhone) {
-                            System.out.println(contact.getFirstName()+" "+contact.getLastName()+"\n"+contact.getPhoneNumber()+"\n"+contact.getAddress());
+                            System.out.println("Name: "+contact.getFirstName()+" "+contact.getLastName()+"\n"+"Phone No. : "+contact.getPhoneNumber()+"\n"+"Address :"+contact.getAddress());
                         }
                     } else {
                         System.out.println("Contact not found by phone number.");
                     }
                 }
                 else{
-                    String firstName,lastName=null;
-                    if(input.split("\\w+").length>1){
-                        lastName = input.substring(input.lastIndexOf(" ")+1);
-                        firstName = input.substring(0, input.lastIndexOf(' '));
-                    }
-                    else{
-                        firstName = input;
-                    }
-                    List<Integer> resultByName = contactManager.searchByName(firstName,lastName);
+                    List<Integer> resultByName = contactManager.searchByName(input);
                     if (!resultByName.isEmpty()) {
                         List<Contact> contactsByName = contactManager.getContactsByHashCodes(resultByName);
                         System.out.println("Contacts found by name:");
                         for (Contact contact : contactsByName) {
-                            System.out.println(contact.getFirstName()+" "+contact.getLastName()+"\n"+contact.getPhoneNumber()+"\n"+contact.getAddress());
+                            System.out.println("Name: "+contact.getFirstName()+" "+contact.getLastName()+"\n"+"Phone No. : "+contact.getPhoneNumber()+"\n"+"Address :"+contact.getAddress());
                         }
                     } else {
                         System.out.println("Contact not found by name.");
