@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>addressbook</artifactId>
+    <artifactId>shoppingkart</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>addressbook</name>
+    <name>shoppingkart</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -60,7 +60,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.addressbook/com.example.addressbook.HelloApplication</mainClass>
+                            <mainClass>com.example.shoppingkart/com.example.shoppingkart.HelloApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
